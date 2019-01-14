@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./three.js"></script>
+    <script>
+        // 创建场景
+        var scene = new THREE.Scene()
+
+        // 设置相机 参数列表（视口大小，视野宽高比，视野最近距离，视野最远距离）
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000)
+      
+        // 移动相机的位置
+        camera.position.set(0, 0, 200)
+      
+        // 设置相机朝向
+        camera.lookAt(new THREE.Vector3(0, 0, 0))
+
+        // 创建渲染器
+        var renderer = new THREE.WebGLRenderer()
+
+        // 设置渲染区域尺寸
+        renderer.setSize(window.innerWidth, window.innerHeight,false)
+
+        
+
+    </script>
+</body>
+
+</html>

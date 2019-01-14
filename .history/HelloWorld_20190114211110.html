@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Three框架</title>
+    <script src="./three.js" ></script>
+</head>
+<body>
+<script>
+    // 1. 创建场景
+    var scene = new THREE.Scene()
+
+    // 2. 创建相机
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000)
+    camera.position.z = 5
+
+    // 3. 创建并设置渲染器
+    var renderer = new THREE.WebGLRenderer({antialias: true})
+    renderer.setSize(window.innerWidth, window.innerHeight, false)
+    document.body.appendChild(renderer.domElement)
+
+    // 4. 创建物体添加到场景中
+    var cube = new THREE.Mesh(new THREE.CubeGeometry(1, 2, 1), new THREE.MeshBasicMaterial({color: 0x00ffff}))
+    scene.add(cube)
+
+    // 5. 渲染
+
+    // 设置一个动画函数
+    var animate = function () {
+        // 一秒钟调用60次，也就是每秒60帧 绘制场景
+        requestAnimationFrame(animate)
+
+        // 每次调用模型旋转
+        cube.rotation.x += 0.01
+        cube.rotation.y += 0.01
+
+        //渲染摄像机看见的场景
+        renderer.render(scene, camera)
+    }
+
+    animate()
+
+</script>
+</body>
+</html>
