@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body onload="draw()">
+    <script src="./three.js"></script>
+    <script src="./js/TrackballControls.js"></script>
+    <script>
+        var width = window.innerWidth
+        var height = window.innerheight
+        // 场景
+        var scene
+        function initScene() {
+            scene = new THREE.Scene()
+        }
+
+        // 相机
+        var camera
+        function initCamera() {
+            camera = new THREE.PerspectiveCamera(45, width/height, 0.1, 1000)
+            camera.position.set(0, 0, 500)
+            camera.lookAt(new THREE.Vector3(0,0,0))
+        }
+
+        // 渲染器
+        var renderer
+        function initRenderer() {
+            renderer = new THREE.WebGLRenderer({antialias: true})
+            renderer.setSize(width, height)
+            document.body.appendChild(renderer.domElement)
+        }
+
+        // 灯光
+        function initLight() {
+            // 平行光
+            var light = new THREE.DirectionalLight(0xffffff)
+            light.position.set(1, 1, 1)
+            scene.add(light)
+            // 环境光
+            scene.add(new THREE.AmbientLight(0x606060))
+        }
+
+        // 模型
+        function initModel() {
+            // 加载外部贴图
+            // var map = new THREE.TextureLoader().load("https://inknight.cn/pic/texture/fall.jpg")
+            // var material = new THREE.MeshLambertMaterial({map: map})
+            var material = new  THREE.MeshLambertMaterial({color: 0x000000})
+            var cube = new THREE.Mesh(new THREE.BoxGeometry(100, 200, 100), material)
+            scene.add (cube)
+        }
+
+        // 用户交互插件，鼠标按住旋转， 鼠标右键按住平移，滚轮缩放
+        var controls
+
+        function initControls() {
+            controls = new THREE.TrackballControls(camera)
+            // 旋转速度
+            controls.rotateSpeed = 5
+            // 变焦速度
+            controls.zoomSpeed = 3
+            // 平移速度
+            controls.panSpeed = 0.8
+            // 是否不变焦
+            controls.noZoom = false
+            // 是否不平移
+            controls.noPan = false
+            // 是否开启移动惯性
+            controls.staticMoving = false
+            // 动态阻尼系数（灵敏度）
+            controls.dynamicDampingFactor = 0.3
+
+            controls.addEventListener('change', render)
+        }
+
+        function render() {
+            renderer.render(scene, camera)
+        }
+
+        // // 窗口变动就触发
+        // function onWindowResize() {
+        //     camera.aspect = window.innerWidth / window.innerHeight
+        //     camera.updateProjectionMatrix()
+        //     controls.handleResize()
+        //     render()
+        // }
+        
+        function animate() {
+            controls.update()
+            render()
+            // 渲染下一帧时执行回调函数
+            window.requestAnimationFrame(animate)
+        }
+
+        function draw() {
+            initScene()
+            initCamera()
+            initRenderer()
+            initLight()
+            initModel()
+            initControls()
+
+            animate()
+        }
+    </script>
+</body>
+</html>
