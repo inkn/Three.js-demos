@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./three.js"></script>
+    <script src="./js/stats.min.js"></script>
+    <script>
+        var width,height
+
+        var scene
+        function initScene() {
+            scene = new THREE.Scene()
+        }
+
+        var camera
+        function initCamera() {
+            camera = new THREE.PerspectiveCamera(45, width/height, 1, 2000 )
+            camera.position.set(0, 0, 500)
+            camera.lookAt(0, 0, 0)
+        }
+
+        var renderer
+        function initRenderer() {
+            renderer = new THREE.WebGLRenderer({antialias: true})
+            renderer.setSize(width, height)
+            document.body.appendChild(renderer.domElement)
+        }
+
+        var light
+        function initLight() {
+            light = new THREE.DirectionalLight(0xffffff)
+            scene.add(light)
+        }
+        
+        var cubes = []
+        function initModel() {
+            var cube = new THREE.Mesh(new THREE.BoxGeometry(100,200,100), new THREE.MeshBasicMaterial({color: 0x00ffff}))
+            for (let i = 0; i < 10; i++) {
+                cube.position.set(10*i , 10*i, -5*i)
+                scene.add(cube)
+                var cube = new THREE.Mesh(new THREE.BoxGeometry(100,200,100), new THREE.MeshBasicMaterial({color: 0x00ffff}))
+            }
+        }
+    
+        function render() {
+            initScene()
+            initCamera()
+            initRenderer()
+            initLight()
+            initModel()
+            var cube = new THREE.Mesh(new THREE.CubeGeometry(1, 2, 1), new THREE.MeshBasicMaterial({color: 0x00ffff}))
+        scene.add(cube)
+            renderer.render(scene, camera)
+        }
+       
+
+        // 设置一个动画函数
+    var animate = function () {
+        // 一秒钟调用60次，也就是每秒60帧 绘制场景
+        requestAnimationFrame(animate)
+
+        // 每次调用模型旋转
+        cube.rotation.x += 0.01
+        cube.rotation.y += 0.01
+
+        //渲染摄像机看见的场景
+        renderer.render(scene, camera)
+    }
+
+    animate()
+    </script>
+</body>
+
+</html>

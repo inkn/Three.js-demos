@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./three.js"></script>
+    <script src="./js/stats.min.js"></script>
+    <script>
+        var width, height
+        
+        // 场景
+        var scene
+        function initScene() {
+            scene = new THREE.Scene()
+        }
+
+        // 相机
+        var camera
+        function initCamera() {
+            camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000)
+            camera.position.set(0, 0, 2000)
+            camera.lookAt(0, 0, 0)
+        }
+
+        // 渲染器
+        var renderer
+        function initRenderer() {
+            renderer = new THREE.WebGLRenderer({
+                antialias: true
+            })
+            renderer.setSize(width, height)
+            document.body.appendChild(renderer.domElement)
+        }
+
+        // 灯光
+        var light
+        function initLight() {
+            light = new THREE.DirectionalLight(0xffffff)
+            scene.add(light)
+        }
+
+        // 模型
+        var cubes = []
+        function initModel() {
+            var cube = new THREE.Mesh(new THREE.BoxGeometry(100, 200, 100), new THREE.MeshBasicMaterial({
+                color: 0x00ffff
+            }))
+            for (let i = -10; i < 10; i++) {
+                cube.position.set(500 * i, 0, -200 * i * i)
+                scene.add(cube)
+                cubes.push(cube)
+                var cube = new THREE.Mesh(new THREE.BoxGeometry(100, 200, 100), new THREE.MeshBasicMaterial({
+                    color: 0x00ffff
+                }))
+            }
+        }
+
+        //*************插件部分 start************
+        var stats
+        function initStas() {
+            stats = new Stats()
+            document.body.appendChild(stats.dom)
+        }
+        //*************插件部分 end**************
+
+
+        // 初始化
+        function init() {
+            width = window.innerWidth
+            height = window.innerHeight
+            initScene()
+            initCamera()
+            initRenderer()
+            initLight()
+            initModel()
+
+            renderer.render(scene, camera)
+        }
+
+        // 动画
+        function animate() {
+           
+            // 立方体旋转
+            cubes.forEach(cube => {
+                cube.rotation.x += 0.02
+                cube.rotation.y += 0.02
+            })
+
+            renderer.render(scene, camera)
+            window.requestAnimationFrame(animate)
+        }
+
+        function draw() {
+            init()
+            animate()
+        }
+
+        draw()
+    </script>
+</body>
+
+</html>
