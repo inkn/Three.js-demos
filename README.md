@@ -16,6 +16,10 @@
 - [演示效果](http://inknight.cn/Three.js-demos/plugin_stats.html) 
 - [代码](https://github.com/inkn/Three.js-demos/blob/master/plugin_stats.html)
 
-### 4.OpenShadow
+### 5.OpenShadow
 - [演示效果](http://inknight.cn/Three.js-demos/open_shadow.html) 
 - [代码](https://github.com/inkn/Three.js-demos/blob/master/open_shadow.html)
+
+### 6.PluginDatGUI
+- [演示效果](http://inknight.cn/Three.js-demos/plugin_dat.gui.html) 
+- [代码](https://github.com/inkn/Three.js-demos/blob/master/plugin_dat.gui.html)

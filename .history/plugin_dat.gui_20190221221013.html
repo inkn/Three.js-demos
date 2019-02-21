@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Plugin datGUI</title>
+</head>
+
+<body>
+    <script src="three.js"></script>
+    <script src="js/TrackballControls.js"></script>
+    <script src="js/stats.min.js"></script>
+    <script src="js/dat.gui.min.js"></script>
+    <script>
+        
+        // 插件
+
+        //初始化性能插件
+        var stats
+
+        function initStats() {
+
+            stats = new Stats()
+            document.body.appendChild(stats.dom)
+
+        }
+
+        // 用户交互插件，鼠标按住旋转， 鼠标右键按住平移，滚轮缩放
+        var controls
+
+        function initControls() {
+            controls = new THREE.TrackballControls(camera)
+            // 旋转速度
+            controls.rotateSpeed = 5
+            // 变焦速度
+            controls.zoomSpeed = 3
+            // 平移速度
+            controls.panSpeed = 0.8
+            // 是否不变焦
+            controls.noZoom = false
+            // 是否不平移
+            controls.noPan = false
+            // 是否开启移动惯性
+            controls.staticMoving = false
+            // 动态阻尼系数（灵敏度）
+            controls.dynamicDampingFactor = 0.3
+
+            controls.addEventListener('change', render)
+        }
+
+        // 初始化 dat.gui 插件
+        var datGui,args
+
+        function initDatGui() {
+
+            // 声明一个包装需要修改参数的容器对象
+            args = {
+                lightX: light.position.x,
+                lightZ: light.position.z,
+                lightY: light.position.y,
+                sphereX: sphere.position.x,
+                sphereZ: sphere.position.z,
+                sphereY: sphere.position.y,
+            }
+
+            datGui = new dat.GUI()
+
+            // 设置 datGUI 显示的属性及其范围
+            datGui.add(args, 'lightX', -50, 50) // 对象， 属性， 最小值， 最大值
+            datGui.add(args, 'lightZ', -50, 50)
+            datGui.add(args, 'lightY', 0, 100)
+            datGui.add(args, 'sphereX', -50, 50)
+            datGui.add(args, 'sphereZ', -50, 50)
+            datGui.add(args, 'sphereY', 0, 100)
+        }
+
+        function render() {
+            renderer.render(scene, camera)
+        }
+
+        function animate() {
+            render()
+            //更新性能插件
+            stats.update()
+
+            //更新控制器
+            controls.update()
+
+            //根据 datGUI 更新相关位置
+            light.position.y = args.lightY
+            light.position.x = args.lightX
+            light.position.z = args.lightZ
+
+            sphere.position.x = args.sphereX
+            sphere.position.y = args.sphereY
+            sphere.position.z = args.sphereZ
+
+            requestAnimationFrame(animate)
+        }
+
+        function draw() {
+            width = window.innerWidth
+            height = window.innerHeight
+
+         
+            initStats()
+            initControls()
+            initDatGui()
+
+            animate()
+        }
+
+        draw()
+    </script>
+</body>
+
+</html>
