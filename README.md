@@ -23,3 +23,7 @@
 ### 6.PluginDatGUI
 - [演示效果](http://inknight.cn/Three.js-demos/plugin_dat.gui.html) 
 - [代码](https://github.com/inkn/Three.js-demos/blob/master/plugin_dat.gui.html)
+
+### 7.FBXModel
+- [演示效果](http://inknight.cn/Three.js-demos/fbx_model.html) 
+- [代码](https://github.com/inkn/Three.js-demos/blob/master/fbx_model.html)
