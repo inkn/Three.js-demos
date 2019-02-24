@@ -27,3 +27,7 @@
 ### 7.FBXModel
 - [演示效果](http://inknight.cn/Three.js-demos/fbx_model.html) 
 - [代码](https://github.com/inkn/Three.js-demos/blob/master/fbx_model.html)
+
+### 8.AddSkybox
+- [演示效果](http://inknight.cn/Three.js-demos/add_skybox.html) 
+- [代码](https://github.com/inkn/Three.js-demos/blob/master/add_skybox.html)
